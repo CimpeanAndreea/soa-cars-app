@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  shell:
+    build:
+      context: .
+      dockerfile: projects/shell/ShellDockerFile
+      args:
+        ANGULAR3_APP_API_BASE_URL: http://127.0.0.1:5000/
+    ports:
+      - "5000:80"
+    links:
+      - microf1
+      - microf2
+    container_name: shell-container
+    stdin_open: true
+
+  microf1:
+    build:
+      context: .
+      dockerfile: projects/microfrontend1/Microfrontend1DockerFile
+      args:
+        ANGULAR1_APP_API_BASE_URL: http://127.0.0.1:3000/remoteEntry.js
+    ports:
+      - "3000:8080"
+    container_name: microf1-container
+    stdin_open: true
+
+  microf2:
+    build:
+      context: .
+      dockerfile: projects/microfrontend2/Microfrontend2DockerFile
+      args:
+        ANGULAR2_APP_API_BASE_URL: http://127.0.0.1:3001/remoteEntry.js
+    ports:
+      - "3001:8080"
+    links:
+      - microf1
+    container_name: microf2-container
+    stdin_open: true

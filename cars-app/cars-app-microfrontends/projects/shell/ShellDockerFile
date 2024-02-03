@@ -1,0 +1,38 @@
+# Use an official Node.js image as the base image
+FROM node:latest as build
+
+# Set the working directory inside the container
+WORKDIR /app-micro-shell
+
+# Copy package.json and package-lock.json to the working directory
+COPY ../projects/shell/package*.json /app-micro-shell/
+
+# Install dependencies
+RUN npm install -g @angular/cli
+RUN npx npm install
+
+# Copy the rest of the application code
+COPY ../projects/shell /app-micro-shell/
+
+# Arguments
+ARG ANGULAR_APP_API_BASE_URL
+ENV ANGULAR_APP_API_BASE_URL=${ANGULAR_APP_API_BASE_URL}
+
+# microfrontend envs
+ENV ANGULAR1_APP_API_BASE_URL http://localhost:3000/remoteEntry.js
+ENV ANGULAR2_APP_API_BASE_URL http://localhost:3000/remoteEntry.js
+
+# Build the application
+RUN npx npm run build
+
+# Use official nginx image as the base image
+FROM nginx:latest
+
+# Copy the build output to replace the default nginx contents.
+COPY ../nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app-micro-shell/dist/shell /usr/share/nginx/html
+
+# Expose the port the app runs on
+EXPOSE 5000 80
+
+CMD ["nginx", "-g", "daemon off;"]
