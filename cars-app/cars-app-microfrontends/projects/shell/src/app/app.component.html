@@ -1,5 +1,22 @@
-<ul>
-  <li><a routerLink="/">Home</a></li>
-  <li *ngFor="let mfe of microfrontends"><a [routerLink]="mfe.routePath">{{mfe.displayName}}</a></li>
-</ul>
+<mat-sidenav class="mat-elevation-z8">
+  <ul>
+    <li>
+      <button mat-button class="menu-button">
+        <a routerLink="/">
+          <mat-icon>home</mat-icon>
+          Home
+        </a>
+      </button>
+    </li>
+    <li *ngFor="let mfe of microfrontends">
+      <button mat-button class="menu-button">
+        <a [routerLink]="mfe.routePath">
+          <mat-icon>view_headline</mat-icon>
+          {{mfe.displayName}}
+        </a>
+      </button>
+    </li>
+  </ul>
+</mat-sidenav>
+
 <router-outlet></router-outlet>

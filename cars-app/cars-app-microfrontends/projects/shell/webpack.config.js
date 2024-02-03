@@ -34,6 +34,7 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
+      name: "shell",
       library: { type: "module" },
 
       // For hosts (please adjust)
@@ -47,6 +48,7 @@ module.exports = {
         "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
         "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
         "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/material": { singleton: true, strictVersion: true, requiredVersion: 'auto', includeSecondaries: true },
 
         ...sharedMappings.getDescriptors()
       })

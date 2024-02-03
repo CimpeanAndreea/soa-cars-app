@@ -7,6 +7,7 @@ import { buildRoutes } from '../menu-utils';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
   microfrontends: Microfrontend[] = [];
