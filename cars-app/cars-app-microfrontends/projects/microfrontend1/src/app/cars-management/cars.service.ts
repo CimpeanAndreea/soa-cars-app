@@ -17,11 +17,11 @@ export class CarsService {
   constructor(private http: HttpClient) {}
 
   getCars(): Observable<Car[]> {
-    return this.http.get<Car[]>(this.apiUrl);
+    return this.http.get<Car[]>(this.apiUrl, this.httpOptions);
   }
 
   deleteCar(id: number): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<any>(url);
+    return this.http.delete<any>(url, this.httpOptions);
   }
 }
