@@ -1,1 +1,17 @@
-<p>cars-list works!</p>
+<h2>Your Cars List</h2>
+<div class="cars-list-wrapper">
+  <mat-card *ngFor="let car of cars">
+    <mat-card-header>
+      <mat-card-title>
+        {{ car.model }}
+        <button mat-button (click)="delete(car.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <img [src]="car.image" width="270">
+      <p>Year: {{ car.year }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
