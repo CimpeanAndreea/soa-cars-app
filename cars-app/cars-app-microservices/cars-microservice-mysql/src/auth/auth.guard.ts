@@ -1,9 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
 import { GetVerificationKey, expressjwt } from 'express-jwt';
 import { Request } from 'express';
 import { ConfigService } from "@nestjs/config";
-import { promisify } from "util";
 import { expressJwtSecret } from "jwks-rsa";
 
 @Injectable()
@@ -21,9 +19,9 @@ export class AuthGuard implements CanActivate {
         const response = context.getArgByIndex(1);
         const token = this.extractToken(request);
 
-        // if (!token) {
-        //     throw new UnauthorizedException('No token provided');
-        // }
+        if (!token) {
+            throw new UnauthorizedException('No token provided');
+        }
 
         const jwtCheck = 
             expressjwt({
@@ -31,26 +29,28 @@ export class AuthGuard implements CanActivate {
                     cache: true,
                     rateLimit: true,
                     jwksRequestsPerMinute: 5,
-                    jwksUri: `${this.AUTH0_DOMAIN}.well-known/jwks.json` //`${this.AUTH0_DOMAIN}.well-known/jwks.json`,
+                    jwksUri: `${this.AUTH0_DOMAIN}.well-known/jwks.json`
                 }) as GetVerificationKey,
                 audience: this.AUTH0_AUDIENCE,
                 issuer: this.AUTH0_DOMAIN,
                 algorithms: ['RS256'],
             });
 
-            try {
-                // await new Promise<void>((resolve, reject) => {
-                //     jwtCheck(request, response, (err) => {
-                //     if (err) {
-                //       return reject(err);
-                //     }
-                //     resolve();
-                //   });
-                // });
-                return true;
-              } catch (error) {
-                throw new UnauthorizedException(error.message || 'Unauthorized token');
-              }
+        try {
+            await new Promise<void>((resolve, reject) => {
+                jwtCheck(request, response, (err) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve();
+                });
+            });
+
+            return true;
+        } 
+        catch (error) {
+            throw new UnauthorizedException(error.message || 'Unauthorized token');
+        }
     }
 
     extractToken(request: Request): string | undefined {

@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
 
+// Use TypeOrmModule (object relational mapping library) to connect NestJS app to the mysql db
 @Module({
   imports: [
     TypeOrmModule.forRoot({

@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Inject, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { CarService } from "./car.service";
 import { Car } from "./car.entity";
-import { AuthGuard } from "src/auth/auth.guard";
 import { ClientProxy } from "@nestjs/microservices";
 
 @Controller('cars')
