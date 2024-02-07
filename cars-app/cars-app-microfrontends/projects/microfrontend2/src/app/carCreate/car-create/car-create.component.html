@@ -1,1 +1,22 @@
-<p>car-create works!</p>
+<h2 class="h2">Insert a new car</h2>
+
+<form (submit)="createCar()">
+  <div class="cars-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Model</mat-label>
+      <input matInput name="model" [(ngModel)]="model">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Image URL</mat-label>
+        <input matInput name="image" [(ngModel)]="image">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Year</mat-label>
+      <input type="number" matInput name="year" [(ngModel)]="year">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="btn-group mr-2">Create</button>
+  </div>
+</form>

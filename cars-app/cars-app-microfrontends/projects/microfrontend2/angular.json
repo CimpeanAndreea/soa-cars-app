@@ -24,8 +24,9 @@
 							"src/assets"
 						],
 						"styles": [
-							"src/styles.css"
-						],
+              {"input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"},
+              "src/styles.css"
+            ],
 						"scripts": [],
 						"main": "src/main.ts",
 						"extraWebpackConfig": "webpack.config.js",
@@ -94,8 +95,9 @@
 							"src/assets"
 						],
 						"styles": [
-							"src/styles.css"
-						],
+              {"input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"},
+              "src/styles.css"
+            ],
 						"scripts": []
 					}
 				}

@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
 import { Car } from "../car";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root',
 })
-export class CarsService {
+export class CarCreateService {
   private apiUrl = 'http://localhost:8000/api/cars';
 
   httpOptions = {
@@ -16,12 +16,7 @@ export class CarsService {
 
   constructor(private http: HttpClient) {}
 
-  getCars(): Observable<Car[]> {
-    return this.http.get<Car[]>(this.apiUrl, this.httpOptions);
-  }
-
-  deleteCar(id: number): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<any>(url, this.httpOptions);
+  createCar(car: Car): Observable<Car> {
+    return this.http.post<Car>(this.apiUrl, car, this.httpOptions);
   }
 }
