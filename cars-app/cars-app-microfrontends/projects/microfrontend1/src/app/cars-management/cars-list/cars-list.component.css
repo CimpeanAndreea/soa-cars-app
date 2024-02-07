@@ -43,3 +43,8 @@ mat-card-title {
   flex-direction: row;
   justify-content: space-between;
 }
+
+::ng-deep .mat-mdc-card-header-text {
+  width: 100%;
+}
+
