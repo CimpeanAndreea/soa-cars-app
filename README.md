@@ -34,6 +34,7 @@ The system handles simple CRUD operations on the **Car** entity that has a model
     - NestJs controllers with CRUD operations
     - Connected to MYSQL
     - **Secured REST API** with Auth0
+    
     ![auth1](documentation/auth1.png)
     ![auth2](documentation/auth2.png)
     - **Message broker RabbitMQ** emit event which adds in queue
